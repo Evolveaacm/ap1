@@ -1,0 +1,64 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+/dist/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# env files
+.env
+.env*.local
+.env.production
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# deployment files
+*.zip
+*.tar.gz
+deploy/
+DEPLOY_*.md
+DEPLOY_*.txt
+PUSH_TO_GITHUB.md
+github-source.tar.gz
+site.tar.gz
+deployment.zip
+deploy-static.zip
+
+# deployment files
+*.zip
+*.tar.gz
+deploy/
+dist/
+DEPLOY_*.md
+DEPLOY_*.txt
+PUSH_TO_GITHUB.md

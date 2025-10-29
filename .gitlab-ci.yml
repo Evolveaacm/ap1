@@ -1,0 +1,24 @@
+image: node:18
+
+pages:
+  stage: deploy
+  script:
+    - npm install
+    - npm run build
+    - mkdir -p public
+    - cp .next/server/app/index.html public/index.html
+    - cp .next/server/pages/404.html public/404.html
+    - mkdir -p public/contact && cp .next/server/app/contact.html public/contact/index.html
+    - mkdir -p public/funding && cp .next/server/app/funding.html public/funding/index.html
+    - mkdir -p public/privacy && cp .next/server/app/privacy.html public/privacy/index.html
+    - mkdir -p public/products && cp .next/server/app/products.html public/products/index.html
+    - mkdir -p public/solutions && cp .next/server/app/solutions.html public/solutions/index.html
+    - mkdir -p public/terms && cp .next/server/app/terms.html public/terms/index.html
+    - mkdir -p public/_next
+    - cp -r .next/static public/_next/
+    - cp public-assets/ameritech-logo.svg public/ 2>/dev/null || cp public/ameritech-logo.svg public/ 2>/dev/null || true
+  artifacts:
+    paths:
+      - public
+  only:
+    - main

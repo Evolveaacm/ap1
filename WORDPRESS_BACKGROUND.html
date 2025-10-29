@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Orb Background - WordPress</title>
+    <style>
+        /* Background Canvas Styling */
+        .animated-orb-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1; /* Behind content */
+        }
+        
+        /* Optional: If you want it behind specific sections only */
+        .section-with-background {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-with-background .animated-orb-background {
+            position: absolute;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- STEP 1: Add this canvas element to your WordPress page/template -->
+<canvas class="animated-orb-background" id="orbBackground"></canvas>
+
+<!-- STEP 2: Add this JavaScript code -->
+<script>
+(function() {
+    const canvas = document.getElementById('orbBackground');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    // Set canvas size
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    
+    // Create orbs
+    const orbs = [];
+    const orbCount = window.innerWidth < 768 ? 4 : 8;
+    
+    for (let i = 0; i < orbCount; i++) {
+        orbs.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: 100 + Math.random() * 150,
+            speedX: (Math.random() - 0.5) * 0.5,
+            speedY: (Math.random() - 0.5) * 0.5,
+            opacity: 0.2 + Math.random() * 0.15,
+            hue: 200 + Math.random() * 40, // Blue colors (adjust for different colors)
+        });
+    }
+    
+    // Animation function
+    function animate() {
+        if (!ctx || !canvas) return;
+        
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw each orb
+        orbs.forEach(function(orb) {
+            // Create radial gradient for glow effect
+            const gradient = ctx.createRadialGradient(
+                orb.x, orb.y, 0,
+                orb.x, orb.y, orb.radius
+            );
+            
+            gradient.addColorStop(0, 'hsla(' + orb.hue + ', 100%, 60%, ' + orb.opacity + ')');
+            gradient.addColorStop(0.4, 'hsla(' + orb.hue + ', 100%, 50%, ' + (orb.opacity * 0.6) + ')');
+            gradient.addColorStop(0.7, 'hsla(' + orb.hue + ', 100%, 40%, ' + (orb.opacity * 0.3) + ')');
+            gradient.addColorStop(1, 'hsla(' + orb.hue + ', 100%, 30%, 0)');
+            
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Move orb
+            orb.x += orb.speedX;
+            orb.y += orb.speedY;
+            
+            // Bounce off edges
+            if (orb.x < -orb.radius) { orb.x = -orb.radius; orb.speedX *= -1; }
+            if (orb.x > canvas.width + orb.radius) { orb.x = canvas.width + orb.radius; orb.speedX *= -1; }
+            if (orb.y < -orb.radius) { orb.y = -orb.radius; orb.speedY *= -1; }
+            if (orb.y > canvas.height + orb.radius) { orb.y = canvas.height + orb.radius; orb.speedY *= -1; }
+        });
+        
+        requestAnimationFrame(animate);
+    }
+    
+    // Start animation
+    animate();
+    
+    // Handle window resize
+    window.addEventListener('resize', resizeCanvas);
+})();
+</script>
+
+<!-- Your WordPress content goes here -->
+<div style="position: relative; z-index: 1; padding: 40px; color: white;">
+    <h1>Your WordPress Content</h1>
+    <p>This content will appear on top of the animated background.</p>
+</div>
+
+</body>
+</html>

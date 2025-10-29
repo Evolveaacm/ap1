@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 200">
+  <!-- Amer in black - serif font -->
+  <text x="25" y="120" font-family="Georgia, 'Times New Roman', serif" font-size="90" font-weight="bold" fill="#000000">Amer</text>
+  <!-- i in black - serif font (without dot, we'll add star above) -->
+  <text x="285" y="120" font-family="Georgia, 'Times New Roman', serif" font-size="90" font-weight="bold" fill="#000000" style="font-feature-settings: 'zero' 1;">ı</text>
+  <!-- Star as the dot of i - positioned where the dot should be -->
+  <polygon points="300,38 304,51 317,51 306,59 310,72 300,64 290,72 294,59 283,51 296,51" fill="#000000"/>
+  <!-- tech in blue - serif font -->
+  <text x="318" y="120" font-family="Georgia, 'Times New Roman', serif" font-size="90" font-weight="bold" fill="#1e40af">tech</text>
+  <!-- PAYMENTS below in black -->
+  <text x="120" y="175" font-family="Arial, sans-serif" font-size="44" font-weight="bold" letter-spacing="8" fill="#000000">PAYMENTS</text>
+</svg>
